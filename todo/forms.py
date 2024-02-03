@@ -1,8 +1,5 @@
 from django import forms
-from django.forms import (
-    DateTimeInput,
-    CheckboxSelectMultiple
-)
+from django.forms import DateTimeInput, CheckboxSelectMultiple
 
 from todo.models import Todo, Tag
 
@@ -10,10 +7,10 @@ from todo.models import Todo, Tag
 class TodoCreationForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ["title", "description", "tags"]
+        fields = ["title", "description", "tag"]
         widgets = {
             "created_date": DateTimeInput(attrs={"type": "datetime-local"}),
-            "tags": CheckboxSelectMultiple
+            "completed": CheckboxSelectMultiple,
         }
 
 
