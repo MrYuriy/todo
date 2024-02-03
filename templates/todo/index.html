@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center" style="width: 50%">
+    <h1>TODO list:</h1>
+    <a href="{% url "todo:todo-create" %}" class="btn btn-primary">Add</a>
+  </div>
+  <br>
+ {% if todo_list %}
+    <ul>
+      {% for todo in todo_list %}
+        <li style="list-style: none">
+            <strong>{{ todo.content }}</strong>
+            {% if todo.completed == True %}
+              <span style="color:green">Done</span>
+              <p>
+                <form action="{% url "todo:todo-status-update" pk=todo.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="todo_id" value="{{ todo.id }}">
+                  <input type="submit" value="Undo" class="btn btn-secondary">
+                </form>
+              <p>Created: {{ todo.created }}</p>
+            {% else %}
+              <span style="color:red">Not Done</span>
+              <p>
+                <form action="{% url "todo:todo-status-update" pk=todo.id %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="todo_id" value="{{ todo.id }}">
+                  <div class=" float-right">
+                  <input type="submit" value="Complete" class="btn btn-success">
+                  </div>
+                </form>
+              <p>Created: {{ todo.created_date }} <span style="color:darkred">
+              
+            {% endif %}
+          <p>
+            Tags: {% for tag in todo.tags.all %} {{ tag.name }} {% endfor %}
+            <a href="{% url 'todo:todo-update' pk=todo.id %}">
+              Update
+            </a>
+            <a href="{% url 'todo:todo-delete' pk=todo.id %}">
+              Delete
+            </a>
+          </p>
+          <hr>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no todos yet!</p>
+  {% endif %}
+{% endblock %}
