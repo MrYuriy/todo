@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create Tag model
 class Tag(models.Model):
     name = models.CharField(max_length=50)
 
@@ -9,7 +8,6 @@ class Tag(models.Model):
         return self.name
 
 
-# Create your models here.
 class Todo(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()

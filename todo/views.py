@@ -6,9 +6,6 @@ from .forms import TodoCreationForm, TagCreationForm
 from django.shortcuts import get_object_or_404, redirect
 
 
-# Create your views here.
-
-
 class TagListView(generic.ListView):
     model = Tag
     template_name = "todo/tag_list.html"
