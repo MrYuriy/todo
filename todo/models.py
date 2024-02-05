@@ -11,7 +11,7 @@ class Tag(models.Model):
 class Todo(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
-    tag = models.ManyToManyField(Tag)
+    tag = models.ManyToManyField(Tag, related_name="tag")
     completed = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
 
